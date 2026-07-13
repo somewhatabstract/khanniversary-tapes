@@ -946,7 +946,15 @@
       const data = await res.json();
       const titles = data.items
         .map((item) => item.snippet.title)
-        .filter((t) => t !== 'Private video' && t !== 'Deleted video');
+        .filter((t) => t !== 'Private video' && t !== 'Deleted video')
+        // Uploads are titled '<title> by Jeff Yates #hash #tags' — keep
+        // just the song title on the label.
+        .map((t) =>
+          t
+            .replace(/(\s*#[^\s#]+)+\s*$/, '')
+            .replace(/\s+by\s+Jeff\s+Yates\s*$/i, '')
+            .trim() || t
+        );
       sessionStorage.setItem(cacheKey, JSON.stringify(titles));
       return titles;
     } catch {
