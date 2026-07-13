@@ -303,14 +303,24 @@
   .notch-l { left: 13%; }
   .notch-r { right: 13%; }
 
-  /* Plastic sheen across the shell */
+  /* Plastic sheen across the shell. Scrolling slides the gradient layer
+     sideways (via --sheen-shift, set per-tape from scroll position) so the
+     highlight glances across the plastic; without JS it rests where the
+     static sheen used to sit. */
   .sheen {
     position: absolute;
     inset: 0;
     z-index: 3;
     border-radius: inherit;
     pointer-events: none;
+    overflow: hidden;
+  }
+  .sheen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.11) 46%, rgba(255,255,255,0.04) 58%, transparent 66%);
+    transform: translateX(var(--sheen-shift, 0%));
   }
 
   /* Label sticker: white tape-label stock with faint ruled lines,
@@ -791,6 +801,39 @@
   const yt = document.createElement('script');
   yt.src = 'https://www.youtube.com/iframe_api';
   document.head.appendChild(yt);
+
+  // Sweep each shell's sheen as it travels through the viewport, like
+  // light glancing off the plastic. Scroll-driven (not autonomous) motion,
+  // but skipped under reduced-motion all the same.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cassettes = document.querySelectorAll('.cassette');
+    let sheenTick = false;
+    const sweepSheens = () => {
+      sheenTick = false;
+      cassettes.forEach((shell) => {
+        const rect = shell.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        // 0 when the shell enters at the bottom, 1 as it leaves at the top;
+        // the highlight travels right-to-left, resting centred (its static
+        // position) when the tape is mid-viewport.
+        const progress =
+          1 - (rect.top + rect.height / 2) / (window.innerHeight + rect.height);
+        shell.style.setProperty(
+          '--sheen-shift',
+          ((0.5 - progress) * 130).toFixed(2) + '%'
+        );
+      });
+    };
+    const onScroll = () => {
+      if (!sheenTick) {
+        sheenTick = true;
+        requestAnimationFrame(sweepSheens);
+      }
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    sweepSheens();
+  }
 </script>
 
 </body>
