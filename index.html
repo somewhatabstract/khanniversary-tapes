@@ -353,6 +353,8 @@
   @container (max-width: 480px) {
     .yt-link .yt-words { display: none; }
     .yt-link .yt-word { display: inline; }
+    /* 'TAPE 01 / 09' tightens to '01/09' in the same step */
+    .tape-no .tape-word, .tape-no .tape-gap { display: none; }
   }
   @container (max-width: 340px) {
     .yt-link .yt-word { display: none; }
@@ -671,7 +673,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Dave's Deep Cuts</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 01 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLafgqXA6oHhU" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>01<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLafgqXA6oHhU" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">The five Dave couldn't stop playing.</p>
       </div>
@@ -697,7 +699,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Matthew's Mixtape</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 02 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLb6R968zXD5M" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>02<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLb6R968zXD5M" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">Matthew's five, dubbed with care.</p>
       </div>
@@ -723,7 +725,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Walt's Wavelengths</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 03 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLMLGhIFi7YRs" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>03<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLMLGhIFi7YRs" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">The five that stayed on Walt's frequency.</p>
       </div>
@@ -749,7 +751,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Eric's Earworms</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 04 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLbvqrSnnG-9s" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>04<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLbvqrSnnG-9s" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">Five that wormed their way into Eric's head and wouldn't leave.</p>
       </div>
@@ -775,7 +777,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Jeff's Jams · The Creator's Cut</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 05 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLMjdH71empG0" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>05<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLMjdH71empG0" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">My own five. Choosing was the hardest part.</p>
       </div>
@@ -803,7 +805,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>Claude's Chorus</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 06 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLQ1K0Sjk0gUw" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>06<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLQ1K0Sjk0gUw" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">A selection inspired by Slack interactions and conversations.</p>
       </div>
@@ -829,7 +831,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>Gemini's Gems</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 07 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLdeWI-kvseG8" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>07<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLdeWI-kvseG8" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">Curated from the all-time most viewed songs in the full collection.</p>
       </div>
@@ -855,7 +857,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>The Long Plays</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 08 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLAcdE4n0bOMM" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>08<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLAcdE4n0bOMM" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">The most-watched full-length demos — songs that earned their plays the long way, including a few Khan Academy talent show alumni.</p>
       </div>
@@ -881,7 +883,7 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>Hidden Tracks</h2>
-          <span class="tape-meta"><span class="tape-no">TAPE 09 / 09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLaNNe1SAHJxk" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
+          <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>09<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLaNNe1SAHJxk" target="_blank" rel="noopener"><span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> ↗</a></span>
         </div>
         <p class="blurb">The five least-viewed songs in the collection. Wrongly overlooked — their moment starts now.</p>
       </div>
