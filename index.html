@@ -510,7 +510,8 @@
   }
 
   /* Player. Rests as a paper J-card insert (tracklist + play); pressing
-     play creates the embed behind it and the card rotates up like a lid. */
+     play creates the embed behind it and the card slides out to the right
+     — the direction the play button points — under the window's edge. */
   .video-container {
     position: relative;
     flex: 1;
@@ -520,7 +521,6 @@
     background: #0b0c10;
     border: 1px solid var(--line);
     border-radius: 6px;
-    perspective: 900px;
   }
   .video-container iframe {
     position: absolute;
@@ -534,8 +534,8 @@
     inset: 0;
     z-index: 2;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    gap: 4%;
     padding: 4% 5%;
     box-sizing: border-box;
     background:
@@ -544,12 +544,11 @@
         rgba(96, 130, 190, 0.22) 1.55em calc(1.55em + 1px)),
       #f4f2ea;
     border-top: 6px solid var(--spine, var(--accent));
-    transform-origin: 50% 0;
-    transition: transform 0.7s cubic-bezier(0.45, 0, 0.2, 1), opacity 0.55s ease;
+    transition: transform 0.65s cubic-bezier(0.55, 0, 0.2, 1);
+    box-shadow: -6px 0 14px rgba(0, 0, 0, 0.35);
   }
   .video-container.revealed .jcard {
-    transform: rotateX(-104deg);
-    opacity: 0;
+    transform: translateX(104%);
     pointer-events: none;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -557,7 +556,9 @@
   }
   .tracks {
     margin: 0;
-    padding: 0 3.4rem 0 0;
+    padding: 0;
+    flex: 1;
+    min-width: 0;
     list-style: none;
     counter-reset: track;
     line-height: 1.55;
@@ -565,8 +566,10 @@
   }
   .tracks li {
     counter-increment: track;
-    font-size: clamp(0.72rem, 1.8vw, 0.9rem);
-    color: #3a3f4a;
+    font-family: 'Permanent Marker', 'Segoe Print', 'Bradley Hand', 'Marker Felt', 'Comic Sans MS', cursive;
+    font-size: clamp(0.85rem, 2.4vw, 1.15rem);
+    color: #333845;
+    transform: rotate(-0.4deg);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -582,13 +585,13 @@
   .tracks .tracks-note {
     color: rgba(58, 88, 158, 0.65);
     font-style: italic;
+    font-family: inherit;
+    font-size: clamp(0.72rem, 1.8vw, 0.9rem);
+    transform: none;
   }
   .tracks .tracks-note::before { content: none; }
   .play-btn {
-    position: absolute;
-    right: 4.5%;
-    top: 50%;
-    transform: translateY(-50%);
+    flex: none;
     width: clamp(40px, 12%, 58px);
     aspect-ratio: 1;
     border-radius: 50%;
@@ -603,7 +606,7 @@
     background: #ffc255;
     outline: none;
   }
-  .play-btn:active { transform: translateY(calc(-50% + 2px)); box-shadow: 0 0 0 rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.18); }
+  .play-btn:active { transform: translateY(2px); box-shadow: 0 0 0 rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.18); }
 
   /* ---------- Footer ---------- */
   .coda {
