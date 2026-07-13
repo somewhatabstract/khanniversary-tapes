@@ -491,7 +491,8 @@
     background: radial-gradient(circle at 35% 35%, #6a6f7d, #161820 75%);
   }
 
-  /* Player */
+  /* Player. Rests as a paper J-card insert (tracklist + play); pressing
+     play creates the embed behind it and the card rotates up like a lid. */
   .video-container {
     position: relative;
     flex: 1;
@@ -501,6 +502,7 @@
     background: #0b0c10;
     border: 1px solid var(--line);
     border-radius: 6px;
+    perspective: 900px;
   }
   .video-container iframe {
     position: absolute;
@@ -509,6 +511,81 @@
     height: 100%;
     border: none;
   }
+  .jcard {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4% 5%;
+    box-sizing: border-box;
+    background:
+      repeating-linear-gradient(180deg,
+        transparent 0 1.55em,
+        rgba(96, 130, 190, 0.22) 1.55em calc(1.55em + 1px)),
+      #f4f2ea;
+    border-top: 6px solid var(--spine, var(--accent));
+    transform-origin: 50% 0;
+    transition: transform 0.7s cubic-bezier(0.45, 0, 0.2, 1), opacity 0.55s ease;
+  }
+  .video-container.revealed .jcard {
+    transform: rotateX(-104deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .jcard { transition: none; }
+  }
+  .tracks {
+    margin: 0;
+    padding: 0 3.4rem 0 0;
+    list-style: none;
+    counter-reset: track;
+    line-height: 1.55;
+    overflow: hidden;
+  }
+  .tracks li {
+    counter-increment: track;
+    font-size: clamp(0.72rem, 1.8vw, 0.9rem);
+    color: #3a3f4a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tracks li::before {
+    content: counter(track, decimal-leading-zero);
+    margin-right: 0.7em;
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+    font-size: 0.85em;
+    color: var(--spine, var(--accent));
+    font-weight: 700;
+  }
+  .tracks .tracks-note {
+    color: rgba(58, 88, 158, 0.65);
+    font-style: italic;
+  }
+  .tracks .tracks-note::before { content: none; }
+  .play-btn {
+    position: absolute;
+    right: 4.5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(40px, 12%, 58px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: none;
+    background: var(--accent);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.25), inset 0 -3px 0 rgba(0,0,0,0.18);
+    color: #14161c;
+    font-size: clamp(0.85rem, 2vw, 1.15rem);
+    cursor: pointer;
+  }
+  .play-btn:hover, .play-btn:focus-visible {
+    background: #ffc255;
+    outline: none;
+  }
+  .play-btn:active { transform: translateY(calc(-50% + 2px)); box-shadow: 0 0 0 rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.18); }
 
   /* ---------- Footer ---------- */
   .coda {
@@ -580,8 +657,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLafgqXA6oHhU&enablejsapi=1" title="Dave's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLafgqXA6oHhU" data-title="Dave's playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Dave's playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLafgqXA6oHhU" title="Dave's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -603,8 +684,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLb6R968zXD5M&enablejsapi=1" title="Matthew's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLb6R968zXD5M" data-title="Matthew's playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Matthew's playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLb6R968zXD5M" title="Matthew's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -626,8 +711,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLMLGhIFi7YRs&enablejsapi=1" title="Walt's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLMLGhIFi7YRs" data-title="Walt's playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Walt's playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLMLGhIFi7YRs" title="Walt's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -649,8 +738,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLbvqrSnnG-9s&enablejsapi=1" title="Eric's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLbvqrSnnG-9s" data-title="Eric's playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Eric's playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLbvqrSnnG-9s" title="Eric's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -672,8 +765,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLMjdH71empG0&enablejsapi=1" title="Jeff's Jams playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLMjdH71empG0" data-title="Jeff's Jams playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Jeff's Jams playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLMjdH71empG0" title="Jeff's Jams playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -697,8 +794,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ1K0Sjk0gUw&enablejsapi=1" title="Claude's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLQ1K0Sjk0gUw" data-title="Claude's playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Claude's playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ1K0Sjk0gUw" title="Claude's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -720,8 +821,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLdeWI-kvseG8&enablejsapi=1" title="Gemini's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLdeWI-kvseG8" data-title="Gemini's playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Gemini's playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLdeWI-kvseG8" title="Gemini's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -743,8 +848,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLAcdE4n0bOMM&enablejsapi=1" title="The Long Plays playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLAcdE4n0bOMM" data-title="The Long Plays playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play The Long Plays playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLAcdE4n0bOMM" title="The Long Plays playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -766,8 +875,12 @@
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLaNNe1SAHJxk&enablejsapi=1" title="Hidden Tracks playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" data-list="PLaNNe1SAHJxk" data-title="Hidden Tracks playlist">
+          <div class="jcard">
+            <ol class="tracks" aria-label="Tracklist"><li class="tracks-note">reading the label…</li></ol>
+            <button class="play-btn" type="button" aria-label="Play Hidden Tracks playlist">▶</button>
+          </div>
+          <noscript><iframe src="https://www.youtube.com/embed/videoseries?list=PLaNNe1SAHJxk" title="Hidden Tracks playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></noscript>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -805,27 +918,91 @@
     link.addEventListener('focusin', reposition);
   });
 
-  // Spin the reels only while their tape is playing, via the YouTube
-  // IFrame API (requires enablejsapi=1 on each embed). If the API can't
-  // load, the reels simply stay still.
-  window.onYouTubeIframeAPIReady = () => {
-    document.querySelectorAll('.window iframe').forEach((frame) => {
-      const tapeWindow = frame.closest('.window');
-      new YT.Player(frame, {
-        events: {
-          onStateChange: (event) => {
-            tapeWindow.classList.toggle(
-              'playing',
-              event.data === YT.PlayerState.PLAYING
-            );
-          },
-        },
-      });
-    });
-  };
+  // Each tape rests as a J-card insert: the playlist's tracklist and a
+  // play button. Pressing play creates the embed (nothing is fetched from
+  // YouTube's player until then), flips the card up, and starts playback.
+  const YT_API_KEY = 'AIzaSyBu0NZHQjrTKK6MamNkO6aEmBxNd7bQvEw';
+
+  const ytReady = new Promise((resolve) => {
+    window.onYouTubeIframeAPIReady = () => resolve(window.YT);
+  });
   const yt = document.createElement('script');
   yt.src = 'https://www.youtube.com/iframe_api';
   document.head.appendChild(yt);
+
+  // Read a playlist's track titles, cached per session. Resolves to null
+  // when the API is unreachable (e.g. quota, or a non-Pages origin).
+  const fetchTracks = async (listId) => {
+    const cacheKey = 'tracks:' + listId;
+    try {
+      const cached = sessionStorage.getItem(cacheKey);
+      if (cached) return JSON.parse(cached);
+      const res = await fetch(
+        'https://www.googleapis.com/youtube/v3/playlistItems' +
+          '?part=snippet&maxResults=10&playlistId=' + listId +
+          '&key=' + YT_API_KEY
+      );
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      const titles = data.items
+        .map((item) => item.snippet.title)
+        .filter((t) => t !== 'Private video' && t !== 'Deleted video');
+      sessionStorage.setItem(cacheKey, JSON.stringify(titles));
+      return titles;
+    } catch {
+      return null;
+    }
+  };
+
+  document.querySelectorAll('.video-container[data-list]').forEach((box) => {
+    const tracklist = box.querySelector('.tracks');
+    fetchTracks(box.dataset.list).then((titles) => {
+      tracklist.textContent = '';
+      if (titles && titles.length) {
+        titles.forEach((title) => {
+          const li = document.createElement('li');
+          li.textContent = title;
+          tracklist.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.className = 'tracks-note';
+        li.textContent = titles
+          ? 'this side hasn’t been recorded yet'
+          : 'label unreadable — press play and find out';
+        tracklist.appendChild(li);
+      }
+    });
+
+    box.querySelector('.play-btn').addEventListener('click', () => {
+      if (box.dataset.loaded) return;
+      box.dataset.loaded = 'true';
+      const frame = document.createElement('iframe');
+      frame.src =
+        'https://www.youtube.com/embed/videoseries?list=' + box.dataset.list +
+        '&enablejsapi=1&autoplay=1';
+      frame.title = box.dataset.title;
+      frame.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      box.insertBefore(frame, box.firstChild);
+      box.classList.add('revealed');
+      // Spin the reels only while this tape is actually playing
+      const tapeWindow = box.closest('.window');
+      ytReady.then((YT) => {
+        new YT.Player(frame, {
+          events: {
+            onStateChange: (event) => {
+              tapeWindow.classList.toggle(
+                'playing',
+                event.data === YT.PlayerState.PLAYING
+              );
+            },
+          },
+        });
+      });
+    });
+  });
 
   // Sweep each shell's sheen as it travels through the viewport, like
   // light glancing off the plastic. Scroll-driven (not autonomous) motion,

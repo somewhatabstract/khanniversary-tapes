@@ -15,9 +15,22 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   write-protect notches, a plastic sheen, a Memorex-style white label sticker
   (faint blue ruled lines, curator colour band, marker-pen title in
   'Permanent Marker' from Google Fonts with wavy underline, faint biro
-  "C-90 · HIGH BIAS" stamp), a tape window where the YouTube embed sits
-  BETWEEN two spinning spoked reels (uneven tape pack: left fuller), and a
-  trapezoid baseplate. Reels shrink, never vanish, on small screens.
+  "C-90 · HIGH BIAS" stamp, quiet biro "Open playlist on YouTube" link), a
+  tape window BETWEEN two spoked reels (uneven tape pack: left fuller), and
+  a trapezoid baseplate. Reels shrink, never vanish, on small screens.
+- **Tracklist-first windows**: each window rests as a paper J-card insert
+  showing the playlist's tracklist (fetched client-side from the YouTube
+  Data API v3; key in-page, referrer-restricted to the Pages origin and
+  API-restricted to YouTube Data — safe to be public) plus an amber play
+  button. Pressing play creates the embed on demand (autoplay=1) and the
+  card rotates up like a lid; no YouTube iframes load before that.
+  Fallback copy: empty playlist → "this side hasn't been recorded yet";
+  API unreachable (incl. non-Pages origins — the referrer restriction 403s
+  everywhere else) → "label unreadable — press play and find out".
+  `<noscript>` keeps plain embeds for JS-less visitors.
+- **Reels spin only during playback** (YouTube IFrame API state events);
+  the sheen sweeps across each shell on scroll. Both interaction rewards,
+  not ambient motion.
 - **Nav** is a tape-deck preset row: numbered buttons with full playlist names,
   clickable "A ▸ / B ▸" side links, a vertical separator, then "✱ Outro" and
   "∞ Full list ↗" (external). Mini-cassette CSS tooltips on hover carry short
@@ -65,6 +78,7 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
 ## Working conventions
 
 - The page is one self-contained `index.html`; keep it that way (inline CSS/JS,
-  no build step). Google Fonts is the only external dependency besides YouTube.
+  no build step). External dependencies: Google Fonts, YouTube (embeds +
+  IFrame API), and the YouTube Data API (tracklists).
 - During design iteration this page was previewed as a Claude artifact where
   YouTube embeds cannot load (CSP) — embeds only work on the deployed site.
