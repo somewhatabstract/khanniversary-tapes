@@ -944,12 +944,14 @@
       const titles = data.items
         .map((item) => item.snippet.title)
         .filter((t) => t !== 'Private video' && t !== 'Deleted video')
-        // Uploads are titled '<title> by Jeff Yates #hash #tags' (with the
-        // occasional qualifier after the byline, e.g. '… by Jeff Yates
-        // (unedited)') — keep everything but the byline and hashtags.
+        // Uploads are titled '<title> by Jeff Yates #hash #tags', with the
+        // occasional qualifier ('… (unedited)') or copyright notice
+        // ('… © 2024') after the byline — keep the title and qualifiers,
+        // drop the byline, hashtags, and copyright.
         .map((t) =>
           t
             .replace(/(\s*#[^\s#]+)+\s*$/, '')
+            .replace(/\s*(©|\(c\))\s*\d{4}\s*$/i, '')
             .replace(/\s+by\s+Jeff\s+Yates\b/i, '')
             .trim() || t
         );
