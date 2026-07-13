@@ -47,9 +47,8 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   link to the full collection
   (<https://www.youtube.com/playlist?list=PLp_aNQTHQdJiJa1GwaummT-Z762FW242C>).
 - **Side A · picked by people** (01–05): Dave's Deep Cuts, Matthew's Mixtape,
-  Walt's Wavelengths, Eric's Earworms, Jeff's Jams · The Creator's Cut
-  (Jeff's own; shortened to "Jeff's Jams" in the nav; closes side A
-  deliberately).
+  Walt's Wavelengths, Eric's Earworms, Jeff's Jams (Jeff's own; "the
+  creator's cut" lives in its blurb; closes side A deliberately).
 - **Side B · picked by numbers** (06–09): Claude's Chorus (picked from Slack
   interactions), Gemini's Gems (most-viewed — skews Shorts, known and
   accepted), The Long Plays (most-watched full-length, non-Short videos;
