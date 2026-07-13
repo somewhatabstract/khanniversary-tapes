@@ -411,7 +411,10 @@
       repeating-conic-gradient(#e8e9ee 0deg 22deg, #101218 22deg 60deg);
     border: 4px solid #4a4f5e;
     animation: spin 6s linear infinite;
+    /* Reels only turn while their tape is actually playing */
+    animation-play-state: paused;
   }
+  .window.playing .reel { animation-play-state: running; }
   /* Uneven tape pack: left spool fuller, as if the tape is mid-play */
   .window .reel:first-child { box-shadow: 0 0 0 12px #2a2118; margin: 12px 8px 12px 12px; }
   .window .reel:last-child  { box-shadow: 0 0 0 5px #2a2118; margin: 5px 5px 5px 2px; }
@@ -551,7 +554,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLafgqXA6oHhU" title="Dave's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLafgqXA6oHhU&enablejsapi=1" title="Dave's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -573,7 +576,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLb6R968zXD5M" title="Matthew's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLb6R968zXD5M&enablejsapi=1" title="Matthew's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -595,7 +598,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLMLGhIFi7YRs" title="Walt's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLMLGhIFi7YRs&enablejsapi=1" title="Walt's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -617,7 +620,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLbvqrSnnG-9s" title="Eric's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLbvqrSnnG-9s&enablejsapi=1" title="Eric's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -639,7 +642,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLMjdH71empG0" title="The Creator's Cut playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLMjdH71empG0&enablejsapi=1" title="The Creator's Cut playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -663,7 +666,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ1K0Sjk0gUw" title="Claude's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ1K0Sjk0gUw&enablejsapi=1" title="Claude's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -685,7 +688,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLdeWI-kvseG8" title="Gemini's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLdeWI-kvseG8&enablejsapi=1" title="Gemini's playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -707,7 +710,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLAcdE4n0bOMM" title="The Long Plays playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLAcdE4n0bOMM&enablejsapi=1" title="The Long Plays playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -729,7 +732,7 @@
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PLaNNe1SAHJxk" title="Hidden Tracks playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLaNNe1SAHJxk&enablejsapi=1" title="Hidden Tracks playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="reel" aria-hidden="true"></div>
       </div>
@@ -766,6 +769,28 @@
     link.addEventListener('mouseenter', reposition);
     link.addEventListener('focusin', reposition);
   });
+
+  // Spin the reels only while their tape is playing, via the YouTube
+  // IFrame API (requires enablejsapi=1 on each embed). If the API can't
+  // load, the reels simply stay still.
+  window.onYouTubeIframeAPIReady = () => {
+    document.querySelectorAll('.window iframe').forEach((frame) => {
+      const tapeWindow = frame.closest('.window');
+      new YT.Player(frame, {
+        events: {
+          onStateChange: (event) => {
+            tapeWindow.classList.toggle(
+              'playing',
+              event.data === YT.PlayerState.PLAYING
+            );
+          },
+        },
+      });
+    });
+  };
+  const yt = document.createElement('script');
+  yt.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(yt);
 </script>
 
 </body>
