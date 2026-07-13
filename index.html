@@ -650,6 +650,20 @@
     color: rgba(38, 62, 120, 1);
     outline: none;
   }
+  /* Tiny play/pause toggle riding on the highlighted track */
+  .track-state {
+    border: none;
+    background: none;
+    padding: 0 0.45em 0 0;
+    font-size: 0.72em;
+    color: #3a3f4a;
+    cursor: pointer;
+    vertical-align: 1px;
+  }
+  .track-state:hover, .track-state:focus-visible {
+    color: #000;
+    outline: none;
+  }
   /* Highlighter-pen sweep over whichever track is playing */
   .tracks li.now-playing {
     background: linear-gradient(100deg,
@@ -1058,6 +1072,29 @@
     box.appendChild(tab);
 
     let player = null;
+    let isPlaying = false;
+    // Play/pause toggle riding on the highlighted track, so the tape can
+    // be controlled from the tracklist while it covers the video
+    const stateBtn = document.createElement('button');
+    stateBtn.type = 'button';
+    stateBtn.className = 'track-state';
+    stateBtn.addEventListener('click', () => {
+      if (!player) return;
+      if (isPlaying) player.pauseVideo();
+      else player.playVideo();
+    });
+    const showState = (index) => {
+      stateBtn.textContent = isPlaying ? '❚❚' : '▶';
+      stateBtn.setAttribute(
+        'aria-label',
+        isPlaying ? 'Pause this tape' : 'Resume this tape'
+      );
+      const items = tracklist.querySelectorAll('li');
+      items.forEach((li, i) => li.classList.toggle('now-playing', i === index));
+      if (items[index]) items[index].insertBefore(stateBtn, items[index].firstChild);
+      else stateBtn.remove();
+    };
+
     box.querySelector('.play-btn').addEventListener('click', () => {
       if (box.dataset.loaded) {
         // The tape is already in; just slide the card away again
@@ -1082,14 +1119,9 @@
         player = new YT.Player(frame, {
           events: {
             onStateChange: (event) => {
-              tapeWindow.classList.toggle(
-                'playing',
-                event.data === YT.PlayerState.PLAYING
-              );
-              const index = player.getPlaylistIndex();
-              tracklist.querySelectorAll('li').forEach((li, i) => {
-                li.classList.toggle('now-playing', i === index);
-              });
+              isPlaying = event.data === YT.PlayerState.PLAYING;
+              tapeWindow.classList.toggle('playing', isPlaying);
+              showState(player.getPlaylistIndex());
             },
           },
         });
