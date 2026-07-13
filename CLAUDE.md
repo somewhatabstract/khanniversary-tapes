@@ -27,7 +27,11 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   Fallback copy: empty playlist → "this side hasn't been recorded yet";
   API unreachable (incl. non-Pages origins — the referrer restriction 403s
   everywhere else) → "label unreadable — press play and find out".
-  `<noscript>` keeps plain embeds for JS-less visitors.
+  `<noscript>` keeps plain embeds for JS-less visitors. After the card
+  slides away a paper "TRACKS" tab peeks from the window's right edge and
+  slides it back in over the playing video, with the current track under a
+  highlighter-pen sweep (IFrame API playlist index). Embeds use `rel=0`
+  (related videos still appear, but only from the same channel).
 - **Reels spin only during playback** (YouTube IFrame API state events);
   the sheen sweeps across each shell on scroll. Both interaction rewards,
   not ambient motion.
