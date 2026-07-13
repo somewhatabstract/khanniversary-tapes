@@ -348,7 +348,7 @@
   /* Quiet biro-ink link to the playlist itself, matching the label stamps */
   .yt-link {
     display: inline-block;
-    margin-top: 0.45rem;
+    margin-top: 0.2rem;
     font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
     font-size: 0.62rem;
     letter-spacing: 0.12em;
@@ -394,7 +394,13 @@
     font-weight: 800;
     font-size: 0.85rem;
   }
-  .tape-no { margin-left: auto; }
+  /* Tape number with the playlist link tucked beneath it, top right */
+  .tape-meta {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
   .tape-no {
     font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
     font-size: 0.72rem;
@@ -650,10 +656,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Dave's Deep Cuts</h2>
-          <span class="tape-no">TAPE 01 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 01 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLafgqXA6oHhU" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">The five Dave couldn't stop playing.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLafgqXA6oHhU" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -677,10 +682,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Matthew's Mixtape</h2>
-          <span class="tape-no">TAPE 02 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 02 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLb6R968zXD5M" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">Matthew's five, dubbed with care.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLb6R968zXD5M" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -704,10 +708,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Walt's Wavelengths</h2>
-          <span class="tape-no">TAPE 03 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 03 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLMLGhIFi7YRs" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">The five that stayed on Walt's frequency.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLMLGhIFi7YRs" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -731,10 +734,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Eric's Earworms</h2>
-          <span class="tape-no">TAPE 04 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 04 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLbvqrSnnG-9s" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">Five that wormed their way into Eric's head and wouldn't leave.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLbvqrSnnG-9s" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -758,10 +760,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">A</span>
           <h2>Jeff's Jams · The Creator's Cut</h2>
-          <span class="tape-no">TAPE 05 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 05 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLMjdH71empG0" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">My own five. Choosing was the hardest part.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLMjdH71empG0" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -787,10 +788,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>Claude's Chorus</h2>
-          <span class="tape-no">TAPE 06 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 06 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLQ1K0Sjk0gUw" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">A selection inspired by Slack interactions and conversations.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLQ1K0Sjk0gUw" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -814,10 +814,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>Gemini's Gems</h2>
-          <span class="tape-no">TAPE 07 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 07 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLdeWI-kvseG8" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">Curated from the all-time most viewed songs in the full collection.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLdeWI-kvseG8" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -841,10 +840,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>The Long Plays</h2>
-          <span class="tape-no">TAPE 08 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 08 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLAcdE4n0bOMM" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">The most-watched full-length demos — songs that earned their plays the long way, including a few Khan Academy talent show alumni.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLAcdE4n0bOMM" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
@@ -868,10 +866,9 @@
         <div class="sticker-head">
           <span class="side" aria-hidden="true">B</span>
           <h2>Hidden Tracks</h2>
-          <span class="tape-no">TAPE 09 / 09</span>
+          <span class="tape-meta"><span class="tape-no">TAPE 09 / 09</span><a class="yt-link" href="https://www.youtube.com/playlist?list=PLaNNe1SAHJxk" target="_blank" rel="noopener">Open playlist on YouTube ↗</a></span>
         </div>
         <p class="blurb">The five least-viewed songs in the collection. Wrongly overlooked — their moment starts now.</p>
-        <a class="yt-link" href="https://www.youtube.com/playlist?list=PLaNNe1SAHJxk" target="_blank" rel="noopener">Open playlist on YouTube ↗</a>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>
