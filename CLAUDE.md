@@ -34,8 +34,9 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   link to the full collection
   (<https://www.youtube.com/playlist?list=PLp_aNQTHQdJiJa1GwaummT-Z762FW242C>).
 - **Side A · picked by people** (01–05): Dave's Deep Cuts, Matthew's Mixtape,
-  Walt's Wavelengths, Eric's Earworms, The Creator's Cut (Jeff's own, closes
-  side A deliberately).
+  Walt's Wavelengths, Eric's Earworms, Jeff's Jams · The Creator's Cut
+  (Jeff's own; shortened to "Jeff's Jams" in the nav; closes side A
+  deliberately).
 - **Side B · picked by numbers** (06–09): Claude's Chorus (picked from Slack
   interactions), Gemini's Gems (most-viewed — skews Shorts, known and
   accepted), The Long Plays (most-watched full-length, non-Short videos;
@@ -53,7 +54,7 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   Matthew's (`PLb6R968zXD5M`) came from an earlier Gemini draft and look
   truncated (real IDs are ~34 chars). All others were supplied by Jeff
   directly but are also short-looking — verify every embed loads.
-- The Creator's Cut (`PLMjdH71empG0`) and Eric's Earworms (`PLbvqrSnnG-9s`)
+- Jeff's Jams (`PLMjdH71empG0`) and Eric's Earworms (`PLbvqrSnnG-9s`)
   playlists exist but were empty at launch; videos to be added.
 - **Possible tenth list** from a colleague who hasn't responded yet. If it
   arrives: it joins Side A (making six human tapes), and Hidden Tracks becomes
