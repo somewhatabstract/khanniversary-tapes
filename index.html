@@ -1042,6 +1042,9 @@
     }
   };
 
+  // Every live player, so starting one tape can stop the others
+  const allPlayers = [];
+
   document.querySelectorAll('.video-container[data-list]').forEach((box) => {
     const tracklist = box.querySelector('.tracks');
     fetchTracks(box.dataset.list).then((titles) => {
@@ -1122,9 +1125,16 @@
               isPlaying = event.data === YT.PlayerState.PLAYING;
               tapeWindow.classList.toggle('playing', isPlaying);
               showState(player.getPlaylistIndex());
+              // Only one tape in the deck at a time
+              if (isPlaying) {
+                allPlayers.forEach((other) => {
+                  if (other !== player) other.pauseVideo();
+                });
+              }
             },
           },
         });
+        allPlayers.push(player);
       });
     });
   });
