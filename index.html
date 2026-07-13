@@ -1042,8 +1042,9 @@
     }
   };
 
-  // Every live player, so starting one tape can stop the others
-  const allPlayers = [];
+  // Every live tape (player + its window), so starting one can stop the
+  // others and slide their tracklists back over the stopped video
+  const allTapes = [];
 
   document.querySelectorAll('.video-container[data-list]').forEach((box) => {
     const tracklist = box.querySelector('.tracks');
@@ -1100,8 +1101,10 @@
 
     box.querySelector('.play-btn').addEventListener('click', () => {
       if (box.dataset.loaded) {
-        // The tape is already in; just slide the card away again
+        // The tape is already in: slide the card away and make sure the
+        // tape is actually rolling (no-op if it already is)
         box.classList.add('revealed');
+        if (player) player.playVideo();
         return;
       }
       box.dataset.loaded = 'true';
@@ -1125,16 +1128,20 @@
               isPlaying = event.data === YT.PlayerState.PLAYING;
               tapeWindow.classList.toggle('playing', isPlaying);
               showState(player.getPlaylistIndex());
-              // Only one tape in the deck at a time
+              // Only one tape in the deck at a time: pause the others and
+              // slide their tracklists back over the stopped video
               if (isPlaying) {
-                allPlayers.forEach((other) => {
-                  if (other !== player) other.pauseVideo();
+                allTapes.forEach((other) => {
+                  if (other.player !== player) {
+                    other.player.pauseVideo();
+                    other.box.classList.remove('revealed');
+                  }
                 });
               }
             },
           },
         });
-        allPlayers.push(player);
+        allTapes.push({ player, box });
       });
     });
   });
