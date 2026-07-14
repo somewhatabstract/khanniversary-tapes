@@ -450,8 +450,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    /* Light enough that the dark tape path reads against it */
-    background: #1b202b;
+    background: #101218;
     border: 1px solid #3a3e4b;
     border-radius: 8px;
     padding: 12px 14px;
@@ -471,9 +470,8 @@
   }
   .window.playing .reel { animation-play-state: running; }
   /* Uneven tape pack: left spool fuller, as if the tape is mid-play.
-     The pack is concentric layers of wound tape rather than a flat ring,
-     and the reels sit above the tape ribbon strung across the window. */
-  .reel { position: relative; z-index: 1; }
+     The pack is concentric layers of wound tape rather than a flat ring. */
+  .reel { position: relative; }
   .window .reel::before {
     content: '';
     position: absolute;
@@ -494,50 +492,6 @@
   @media (max-width: 700px) {
     .window .reel:first-child { --pack: 9px; margin: 8px 5px 8px 8px; }
     .window .reel:last-child  { --pack: 4px; margin: 3px 3px 3px 1px; }
-  }
-  /* The tape path: pays off the OUTSIDE of each pack, drops down the
-     window edge to the outside of a corner guide spindle, then cuts
-     inward to vanish under the head assembly below */
-  .window { position: relative; overflow: hidden; }
-  /* One static layer stack, top to bottom: spindles, inward cuts, drops —
-     the tape ends AT the spindles and never spins with the reels */
-  .window::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 10px bottom 5px / 11px 11px,
-      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 13px bottom 5px / 11px 11px,
-      linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 14px bottom 0 / 36px 12px,
-      linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 17px bottom 0 / 36px 12px,
-      linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 10px top 0 / 3px calc(100% - 16px),
-      linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 13px top 0 / 3px calc(100% - 16px);
-    background-repeat: no-repeat;
-  }
-  @media (max-width: 700px) {
-    .window::before {
-      background:
-        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 7px bottom 3px / 9px 9px,
-        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 7px bottom 3px / 9px 9px,
-        linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 10px bottom 0 / 28px 9px,
-        linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 10px bottom 0 / 28px 9px,
-        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 7px top 0 / 3px calc(100% - 12px),
-        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 7px top 0 / 3px calc(100% - 12px);
-      background-repeat: no-repeat;
-    }
-  }
-  @media (max-width: 580px) {
-    .window::before {
-      background:
-        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 5px bottom 3px / 9px 9px,
-        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 5px bottom 3px / 9px 9px,
-        linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 8px bottom 0 / 28px 9px,
-        linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 8px bottom 0 / 28px 9px,
-        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 5px top 0 / 3px calc(100% - 12px),
-        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 5px top 0 / 3px calc(100% - 12px);
-      background-repeat: no-repeat;
-    }
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) {
