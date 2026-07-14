@@ -507,23 +507,35 @@
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 4px bottom 5px / 11px 11px,
-      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 4px bottom 5px / 11px 11px,
-      linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 9px bottom 0 / 36px 12px,
-      linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 9px bottom 0 / 36px 12px,
-      linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 8px top 0 / 3px calc(100% - 16px),
-      linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 10px top 0 / 3px calc(100% - 16px);
+      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 10px bottom 5px / 11px 11px,
+      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 13px bottom 5px / 11px 11px,
+      linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 14px bottom 0 / 36px 12px,
+      linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 17px bottom 0 / 36px 12px,
+      linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 10px top 0 / 3px calc(100% - 16px),
+      linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 13px top 0 / 3px calc(100% - 16px);
     background-repeat: no-repeat;
   }
   @media (max-width: 700px) {
     .window::before {
       background:
-        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 2px bottom 3px / 9px 9px,
-        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 2px bottom 3px / 9px 9px,
-        linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 6px bottom 0 / 28px 9px,
-        linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 6px bottom 0 / 28px 9px,
-        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 5px top 0 / 3px calc(100% - 11px),
-        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 6px top 0 / 3px calc(100% - 11px);
+        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 7px bottom 3px / 9px 9px,
+        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 7px bottom 3px / 9px 9px,
+        linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 10px bottom 0 / 28px 9px,
+        linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 10px bottom 0 / 28px 9px,
+        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 7px top 0 / 3px calc(100% - 12px),
+        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 7px top 0 / 3px calc(100% - 12px);
+      background-repeat: no-repeat;
+    }
+  }
+  @media (max-width: 580px) {
+    .window::before {
+      background:
+        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 5px bottom 3px / 9px 9px,
+        radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 5px bottom 3px / 9px 9px,
+        linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left 8px bottom 0 / 28px 9px,
+        linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right 8px bottom 0 / 28px 9px,
+        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) left 5px top 0 / 3px calc(100% - 12px),
+        linear-gradient(180deg, transparent 0 50%, #3a2c1c 50%, #17110b 100%) right 5px top 0 / 3px calc(100% - 12px);
       background-repeat: no-repeat;
     }
   }
