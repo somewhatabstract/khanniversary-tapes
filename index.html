@@ -494,18 +494,34 @@
     .window .reel:first-child { --pack: 9px; margin: 8px 5px 8px 8px; }
     .window .reel:last-child  { --pack: 4px; margin: 3px 3px 3px 1px; }
   }
-  /* The tape itself, strung between the two packs behind the card/video */
-  .window { position: relative; }
+  /* The tape path: down from each pack toward the bottom corners, then
+     along the bottom edge, as if fed over the head in the baseplate */
+  .window { position: relative; overflow: hidden; }
   .window::before {
     content: '';
     position: absolute;
-    left: 10px;
-    right: 10px;
-    top: calc(50% - 1.5px);
-    height: 3px;
-    background: linear-gradient(180deg, #4a3822, #17110b 65%);
-    border-radius: 2px;
+    left: 6px;
+    right: 6px;
+    bottom: 4px;
+    height: 15px;
+    /* Guide spindles (screw-headed) at each end of the bottom tape run */
+    background:
+      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 1px center / 11px 11px no-repeat,
+      radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 1px center / 11px 11px no-repeat,
+      linear-gradient(180deg, #4a3822, #17110b 65%) center / calc(100% - 12px) 3px no-repeat;
   }
+  .window .reel::after {
+    content: '';
+    position: absolute;
+    top: calc(100% + var(--pack) - 3px);
+    left: calc(50% - 1.5px);
+    width: 3px;
+    height: 300px;
+    transform-origin: top center;
+    background: linear-gradient(90deg, #4a3822, #17110b 65%);
+  }
+  .window .reel:first-child::after { transform: rotate(12.5deg); }
+  .window .reel:last-child::after  { transform: rotate(-12.5deg); }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) {
     .vu span { animation: none; height: 60%; }
