@@ -450,7 +450,8 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    background: #101218;
+    /* Light enough that the dark tape path reads against it */
+    background: #1b202b;
     border: 1px solid #3a3e4b;
     border-radius: 8px;
     padding: 12px 14px;
@@ -494,8 +495,9 @@
     .window .reel:first-child { --pack: 9px; margin: 8px 5px 8px 8px; }
     .window .reel:last-child  { --pack: 4px; margin: 3px 3px 3px 1px; }
   }
-  /* The tape path: down from each pack toward the bottom corners, then
-     along the bottom edge, as if fed over the head in the baseplate */
+  /* The tape path: pays off the OUTSIDE of each pack, drops down the
+     window edge to the outside of a corner guide spindle, then cuts
+     inward to vanish under the head assembly below */
   .window { position: relative; overflow: hidden; }
   .window::before {
     content: '';
@@ -503,25 +505,24 @@
     left: 6px;
     right: 6px;
     bottom: 4px;
-    height: 15px;
-    /* Guide spindles (screw-headed) at each end of the bottom tape run */
+    height: 16px;
     background:
       radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) left 1px center / 11px 11px no-repeat,
       radial-gradient(circle at 35% 35%, #6a6f7d, #161820 72%) right 1px center / 11px 11px no-repeat,
-      linear-gradient(180deg, #4a3822, #17110b 65%) center / calc(100% - 12px) 3px no-repeat;
+      linear-gradient(23deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) left bottom / 38px 16px no-repeat,
+      linear-gradient(337deg, transparent calc(50% - 3px), #453421 calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 3px)) right bottom / 38px 16px no-repeat;
   }
   .window .reel::after {
     content: '';
     position: absolute;
-    top: calc(100% + var(--pack) - 3px);
-    left: calc(50% - 1.5px);
+    top: 50%;
     width: 3px;
     height: 300px;
     transform-origin: top center;
     background: linear-gradient(90deg, #4a3822, #17110b 65%);
   }
-  .window .reel:first-child::after { transform: rotate(12.5deg); }
-  .window .reel:last-child::after  { transform: rotate(-12.5deg); }
+  .window .reel:first-child::after { left: calc(-1 * var(--pack)); transform: rotate(1deg); }
+  .window .reel:last-child::after  { right: calc(-1 * var(--pack)); transform: rotate(-2deg); }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) {
     .vu span { animation: none; height: 60%; }
