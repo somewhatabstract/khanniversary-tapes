@@ -469,12 +469,42 @@
     animation-play-state: paused;
   }
   .window.playing .reel { animation-play-state: running; }
-  /* Uneven tape pack: left spool fuller, as if the tape is mid-play */
-  .window .reel:first-child { box-shadow: 0 0 0 12px #2a2118; margin: 12px 8px 12px 12px; }
-  .window .reel:last-child  { box-shadow: 0 0 0 5px #2a2118; margin: 5px 5px 5px 2px; }
+  /* Uneven tape pack: left spool fuller, as if the tape is mid-play.
+     The pack is concentric layers of wound tape rather than a flat ring,
+     and the reels sit above the tape ribbon strung across the window. */
+  .reel { position: relative; z-index: 1; }
+  .window .reel::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--pack) * -1);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle closest-side, transparent 60%, rgba(0,0,0,0.5)),
+      repeating-radial-gradient(circle, #251c11 0 1.5px, #33271a 1.5px 3px);
+    box-shadow: 0 0 0 1px #1a140c;
+    /* Donut mask: the wound pack surrounds the hub, never covers it */
+    -webkit-mask: radial-gradient(circle closest-side,
+      transparent calc(100% - var(--pack) - 1px), #000 calc(100% - var(--pack)));
+    mask: radial-gradient(circle closest-side,
+      transparent calc(100% - var(--pack) - 1px), #000 calc(100% - var(--pack)));
+  }
+  .window .reel:first-child { --pack: 14px; margin: 12px 8px 12px 12px; }
+  .window .reel:last-child  { --pack: 6px; margin: 5px 5px 5px 2px; }
   @media (max-width: 700px) {
-    .window .reel:first-child { box-shadow: 0 0 0 8px #2a2118; margin: 8px 5px 8px 8px; }
-    .window .reel:last-child  { box-shadow: 0 0 0 3px #2a2118; margin: 3px 3px 3px 1px; }
+    .window .reel:first-child { --pack: 9px; margin: 8px 5px 8px 8px; }
+    .window .reel:last-child  { --pack: 4px; margin: 3px 3px 3px 1px; }
+  }
+  /* The tape itself, strung between the two packs behind the card/video */
+  .window { position: relative; }
+  .window::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: calc(50% - 1.5px);
+    height: 3px;
+    background: linear-gradient(180deg, #4a3822, #17110b 65%);
+    border-radius: 2px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) {
