@@ -327,6 +327,16 @@
     background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.11) 46%, rgba(255,255,255,0.04) 58%, transparent 66%);
     transform: translateX(var(--sheen-shift, 0%));
   }
+  /* Second, fainter glint on its own faster pace — starts further right
+     and overtakes the main sheen as the tape scrolls, so the lighting
+     feels dimensional rather than a single sweep */
+  .sheen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(112deg, transparent 70%, rgba(255,255,255,0.06) 75%, rgba(255,255,255,0.02) 80%, transparent 84%);
+    transform: translateX(var(--sheen-shift2, 0%));
+  }
 
   /* Label sticker: white tape-label stock with faint ruled lines,
      a colored brand band, and marker-pen handwriting */
@@ -1252,6 +1262,11 @@
         shell.style.setProperty(
           '--sheen-shift',
           ((0.5 - progress) * 130).toFixed(2) + '%'
+        );
+        // The glint starts further right and travels ~1.7x faster
+        shell.style.setProperty(
+          '--sheen-shift2',
+          ((0.55 - progress) * 220).toFixed(2) + '%'
         );
       });
     };
