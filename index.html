@@ -1178,8 +1178,9 @@
       return 0; // no audio? the deck works fine silently
     }
   };
-  // The sound plays once per visit — the first tape loaded into the deck
-  let clunkPlayed = false;
+  // The sound plays whenever a DIFFERENT tape goes into the deck —
+  // never when re-revealing or resuming the one already loaded
+  let loadedTape = null;
 
   document.querySelectorAll('.video-container[data-list]').forEach((box) => {
     const tracklist = box.querySelector('.tracks');
@@ -1260,10 +1261,10 @@
     };
 
     box.querySelector('.play-btn').addEventListener('click', () => {
-      if (!clunkPlayed) {
-        // First tape of the visit: let the kachunk finish before the
-        // video starts, so playback doesn't stamp on it
-        clunkPlayed = true;
+      if (loadedTape !== box) {
+        // A different tape goes into the deck: let the insertion sound
+        // finish before the video starts, so playback doesn't stamp on it
+        loadedTape = box;
         const wait = clunk();
         if (wait) {
           const btn = box.querySelector('.play-btn');
