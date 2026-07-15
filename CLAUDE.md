@@ -32,9 +32,17 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   slides it back in over the playing video, with the current track under a
   highlighter-pen sweep (IFrame API playlist index). Embeds use `rel=0`
   (related videos still appear, but only from the same channel).
-- **Reels spin only during playback** (YouTube IFrame API state events);
-  the sheen sweeps across each shell on scroll. Both interaction rewards,
-  not ambient motion.
+- **Reels spin only during playback** (YouTube IFrame API state events),
+  counter-clockwise like a cassette playing side A; the sheen (two passes,
+  different speeds) sweeps across each shell on scroll. Interaction
+  rewards, not ambient motion.
+- **Easter eggs** (all deliberate, all quiet): tape packs wind from left
+  reel to right as the playlist progresses (`--wind` from the playlist
+  index); the playing tape's nav mini-cassette tooltip spins its reels;
+  the hero VU meter runs hot while anything plays (`vu-live` on body);
+  tape 05's write-protect tab is punched out (nobody records over the
+  creator's cut); pressing play makes a synthesised tape-deck kachunk
+  (Web Audio, no sample file).
 - **Nav** is a tape-deck preset row: numbered buttons with full playlist names,
   clickable "A ▸ / B ▸" side links, a vertical separator, then "✱ Outro" and
   "∞ Full list ↗" (external). Mini-cassette CSS tooltips on hover carry short

@@ -106,6 +106,11 @@
   .vu span:nth-child(2n) { animation-duration: 0.9s; opacity: 0.6; }
   .vu span:nth-child(3n) { animation-duration: 1.4s; opacity: 0.45; }
   .vu span:nth-child(5n) { animation-duration: 0.7s; }
+  /* While any tape plays, the meter runs hot */
+  .vu-live .vu span { animation-duration: 0.5s; }
+  .vu-live .vu span:nth-child(2n) { animation-duration: 0.4s; }
+  .vu-live .vu span:nth-child(3n) { animation-duration: 0.65s; }
+  .vu-live .vu span:nth-child(5n) { animation-duration: 0.3s; }
   @keyframes vu {
     from { height: 18%; }
     to   { height: 100%; }
@@ -325,6 +330,14 @@
   }
   .notch-l { left: 13%; }
   .notch-r { right: 13%; }
+  /* Tape 05's write-protect tab is punched out: nobody records over the
+     creator's cut */
+  #creator .notch-l {
+    height: 9px;
+    background: #04050a;
+    border-color: #05060c;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.9), inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+  }
 
   /* Plastic sheen across the shell. Scrolling slides the gradient layer
      sideways (via --sheen-shift, set per-tape from scroll position) so the
@@ -515,11 +528,13 @@
     mask: radial-gradient(circle closest-side,
       transparent calc(100% - var(--pack) - 1px), #000 calc(100% - var(--pack)));
   }
-  .window .reel:first-child { --pack: 14px; margin: 12px 8px 12px 12px; }
-  .window .reel:last-child  { --pack: 6px; margin: 5px 5px 5px 2px; }
+  /* --wind (0..1, set from the playlist index) moves tape from the left
+     pack to the right as the tape plays through — a slow, honest detail */
+  .window .reel:first-child { --pack: calc(14px - var(--wind, 0) * 8px); margin: 12px 8px 12px 12px; }
+  .window .reel:last-child  { --pack: calc(6px + var(--wind, 0) * 8px); margin: 5px 5px 5px 2px; }
   @media (max-width: 700px) {
-    .window .reel:first-child { --pack: 9px; margin: 8px 5px 8px 8px; }
-    .window .reel:last-child  { --pack: 4px; margin: 3px 3px 3px 1px; }
+    .window .reel:first-child { --pack: calc(9px - var(--wind, 0) * 5px); margin: 8px 5px 8px 8px; }
+    .window .reel:last-child  { --pack: calc(4px + var(--wind, 0) * 5px); margin: 3px 3px 3px 1px; }
   }
   /* Counter-clockwise, like a cassette playing side A */
   @keyframes spin { to { transform: rotate(-360deg); } }
@@ -1145,6 +1160,46 @@
   // others and slide their tracklists back over the stopped video
   const allTapes = [];
 
+  // A synthesised tape-deck kachunk: a bandpassed click plus a low
+  // mechanical thump. No sample file needed.
+  const clunk = (() => {
+    let audio;
+    return () => {
+      try {
+        audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+        const t = audio.currentTime;
+        const dur = 0.06;
+        const buffer = audio.createBuffer(1, audio.sampleRate * dur, audio.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < data.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * (1 - i / data.length) ** 2;
+        }
+        const noise = audio.createBufferSource();
+        noise.buffer = buffer;
+        const band = audio.createBiquadFilter();
+        band.type = 'bandpass';
+        band.frequency.value = 1400;
+        band.Q.value = 1.2;
+        const noiseGain = audio.createGain();
+        noiseGain.gain.setValueAtTime(0.15, t);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+        noise.connect(band).connect(noiseGain).connect(audio.destination);
+        noise.start(t);
+        const thump = audio.createOscillator();
+        thump.frequency.setValueAtTime(160, t);
+        thump.frequency.exponentialRampToValueAtTime(55, t + 0.09);
+        const thumpGain = audio.createGain();
+        thumpGain.gain.setValueAtTime(0.2, t);
+        thumpGain.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+        thump.connect(thumpGain).connect(audio.destination);
+        thump.start(t);
+        thump.stop(t + 0.12);
+      } catch {
+        // no audio? no kachunk — the deck works fine silently
+      }
+    };
+  })();
+
   document.querySelectorAll('.video-container[data-list]').forEach((box) => {
     const tracklist = box.querySelector('.tracks');
     fetchTracks(box.dataset.list).then((titles) => {
@@ -1224,6 +1279,7 @@
     };
 
     box.querySelector('.play-btn').addEventListener('click', () => {
+      clunk();
       if (box.dataset.loaded) {
         // The tape is already in: slide the card away and make sure the
         // tape is actually rolling (no-op if it already is)
@@ -1257,6 +1313,19 @@
               );
               if (navLink) navLink.classList.toggle('playing-tape', isPlaying);
               showState(player.getPlaylistIndex());
+              // Wind the tape packs to match how far through the tape is
+              const playlist = player.getPlaylist();
+              if (playlist && playlist.length > 1) {
+                tapeWindow.style.setProperty(
+                  '--wind',
+                  (player.getPlaylistIndex() / (playlist.length - 1)).toFixed(3)
+                );
+              }
+              // The hero VU meter runs hot while anything is playing
+              document.body.classList.toggle(
+                'vu-live',
+                !!document.querySelector('.window.playing')
+              );
               // Only one tape in the deck at a time: pause the others and
               // slide their tracklists back over the stopped video
               if (isPlaying) {
