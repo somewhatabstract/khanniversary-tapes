@@ -165,6 +165,39 @@
   }
   .tracklist-nav a:active { border-bottom-width: 1px; transform: translateY(2px); }
 
+  /* While a tape plays, its nav button carries a tiny VU meter dancing
+     behind the label, in the tape's own colour */
+  .tracklist-nav a::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    background-image:
+      linear-gradient(var(--track, var(--accent)), var(--track, var(--accent))),
+      linear-gradient(var(--track, var(--accent)), var(--track, var(--accent))),
+      linear-gradient(var(--track, var(--accent)), var(--track, var(--accent))),
+      linear-gradient(var(--track, var(--accent)), var(--track, var(--accent))),
+      linear-gradient(var(--track, var(--accent)), var(--track, var(--accent)));
+    background-repeat: no-repeat;
+    background-position:
+      left 8% bottom, left 28% bottom, left 50% bottom, left 72% bottom, left 92% bottom;
+    background-size: 3px 30%, 3px 55%, 3px 40%, 3px 65%, 3px 35%;
+  }
+  .tracklist-nav a .num, .tracklist-nav a .who {
+    position: relative;
+    z-index: 1;
+  }
+  .tracklist-nav a.playing-tape::before {
+    opacity: 0.3;
+    animation: btn-vu 0.7s ease-in-out infinite alternate;
+  }
+  @keyframes btn-vu {
+    from { background-size: 3px 30%, 3px 55%, 3px 40%, 3px 65%, 3px 35%; }
+    to   { background-size: 3px 75%, 3px 35%, 3px 85%, 3px 45%, 3px 70%; }
+  }
+
   /* Mini-cassette tooltip: a tiny labelled tape drops below the button,
      with spoked reels either side of a window strip. While that tape is
      playing, the reels turn — a little easter egg for hoverers. */
@@ -226,6 +259,7 @@
   @keyframes reelspin { to { --reelspin: -360deg; } }
   @media (prefers-reduced-motion: reduce) {
     .tracklist-nav a::after { transition: none; animation: none; }
+    .tracklist-nav a::before { animation: none; }
   }
 
   @media (max-width: 620px) {
@@ -668,6 +702,20 @@
   }
   .jcard:has(.tracks li:nth-child(6)) .tracks li {
     font-size: clamp(0.72rem, 1.9vw, 0.95rem);
+  }
+  /* Tracks are clickable: play the tape from that song */
+  .tracks li:not(.tracks-note) { cursor: pointer; }
+  .tracks li:not(.tracks-note):hover {
+    background: linear-gradient(100deg,
+      rgba(240, 168, 40, 0) 0.5%,
+      rgba(240, 168, 40, 0.18) 2.5% 97.5%,
+      rgba(240, 168, 40, 0) 99.5%);
+    border-radius: 3px;
+  }
+  .tracks li:focus-visible {
+    outline: 2px solid var(--spine, var(--accent));
+    outline-offset: 1px;
+    border-radius: 3px;
   }
   .tracks .tracks-note {
     color: rgba(58, 88, 158, 0.65);
@@ -1190,12 +1238,19 @@
   // never when re-revealing or resuming the one already loaded
   let loadedTape = null;
 
-  // Eject every other tape: pause it and slide its tracklist back in
+  // Eject every other tape: slide its tracklist back in and, if it has
+  // been played, rewind it to the start of its playlist
   const ejectOthers = (box) => {
     allTapes.forEach((other) => {
-      if (other.box !== box) {
+      if (other.box === box) return;
+      other.box.classList.remove('revealed');
+      if (other.dirty) {
+        other.dirty = false;
         other.player.pauseVideo();
-        other.box.classList.remove('revealed');
+        other.player.cuePlaylist({
+          listType: 'playlist',
+          list: other.box.dataset.list,
+        });
       }
     });
   };
@@ -1208,6 +1263,9 @@
         titles.forEach((title) => {
           const li = document.createElement('li');
           li.textContent = title;
+          li.tabIndex = 0;
+          li.setAttribute('role', 'button');
+          li.setAttribute('aria-label', 'Play ' + title);
           tracklist.appendChild(li);
         });
       } else {
@@ -1278,7 +1336,11 @@
       else stateBtn.remove();
     };
 
-    box.querySelector('.play-btn').addEventListener('click', () => {
+    // If the tape starts (or must start) at a chosen track, this holds the
+    // index until the player is live enough to honour it
+    let pendingIndex = null;
+
+    const startTape = (trackIndex) => {
       if (loadedTape !== box) {
         // A different tape goes into the deck: stop the old one FIRST,
         // then the insertion sound, and only then does the video start
@@ -1286,18 +1348,23 @@
         loadedTape = box;
         const wait = clunk();
         if (wait) {
-          const btn = box.querySelector('.play-btn');
-          setTimeout(() => btn.click(), wait);
+          setTimeout(() => startTape(trackIndex), wait);
           return;
         }
       }
       if (box.dataset.loaded) {
         // The tape is already in: slide the card away and make sure the
-        // tape is actually rolling (no-op if it already is)
+        // tape is rolling — from the chosen track, if one was clicked
         box.classList.add('revealed');
-        if (player) player.playVideo();
+        if (player) {
+          if (trackIndex != null) player.playVideoAt(trackIndex);
+          else player.playVideo();
+        } else if (trackIndex != null) {
+          pendingIndex = trackIndex;
+        }
         return;
       }
+      pendingIndex = trackIndex != null ? trackIndex : null;
       box.dataset.loaded = 'true';
       const frame = document.createElement('iframe');
       frame.src =
@@ -1312,18 +1379,43 @@
       // Spin the reels only while this tape is actually playing, and keep
       // the highlighter on whichever track that is
       const tapeWindow = box.closest('.window');
+      // A rewound tape shows no current track and its packs wind back
+      const clearTape = () => {
+        tracklist.querySelectorAll('li').forEach((li) =>
+          li.classList.remove('now-playing')
+        );
+        stateBtn.remove();
+        tapeWindow.style.removeProperty('--wind');
+      };
       ytReady.then((YT) => {
+        const entry = { player: null, box, dirty: false };
         player = new YT.Player(frame, {
           events: {
             onStateChange: (event) => {
               isPlaying = event.data === YT.PlayerState.PLAYING;
+              if (isPlaying) entry.dirty = true;
+              // Honour a chosen track once the player is actually rolling
+              if (isPlaying && pendingIndex != null) {
+                const wanted = pendingIndex;
+                pendingIndex = null;
+                if (player.getPlaylistIndex() !== wanted) {
+                  player.playVideoAt(wanted);
+                  return; // the jump re-fires this handler
+                }
+              }
+              if (event.data === YT.PlayerState.CUED) {
+                // Rewound by an eject: back to a fresh, trackless label
+                clearTape();
+              }
               tapeWindow.classList.toggle('playing', isPlaying);
               // Easter egg: the playing tape's nav mini-cassette turns too
               const navLink = document.querySelector(
                 '.tracklist-nav a[href="#' + box.closest('.tape').id + '"]'
               );
               if (navLink) navLink.classList.toggle('playing-tape', isPlaying);
-              showState(player.getPlaylistIndex());
+              if (event.data !== YT.PlayerState.CUED) {
+                showState(player.getPlaylistIndex());
+              }
               // While playing, the nav tooltip names the current track
               if (navLink) {
                 if (!navLink.dataset.blurb) {
@@ -1342,7 +1434,7 @@
               }
               // Wind the tape packs to match how far through the tape is
               const playlist = player.getPlaylist();
-              if (playlist && playlist.length > 1) {
+              if (event.data !== YT.PlayerState.CUED && playlist && playlist.length > 1) {
                 tapeWindow.style.setProperty(
                   '--wind',
                   (player.getPlaylistIndex() / (playlist.length - 1)).toFixed(3)
@@ -1359,8 +1451,27 @@
             },
           },
         });
-        allTapes.push({ player, box });
+        entry.player = player;
+        allTapes.push(entry);
       });
+    };
+
+    box.querySelector('.play-btn').addEventListener('click', () => startTape());
+
+    // The tracklist is a track selector: click (or Enter on) a title to
+    // play the tape from that track
+    tracklist.addEventListener('click', (event) => {
+      if (event.target.closest('.track-state')) return; // pause toggle
+      const li = event.target.closest('li');
+      if (!li || li.classList.contains('tracks-note')) return;
+      startTape([...tracklist.children].indexOf(li));
+    });
+    tracklist.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const li = event.target.closest('li');
+      if (!li || li.classList.contains('tracks-note')) return;
+      event.preventDefault();
+      startTape([...tracklist.children].indexOf(li));
     });
   });
 

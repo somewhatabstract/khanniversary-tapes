@@ -46,7 +46,11 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   orangefreesounds.com under CC BY-NC 4.0 — credited in the liner notes;
   the video load waits for it). Same-tape resume/reveal is silent. The
   tracklist deliberately keeps playing when slid over the video: playback
-  started user-visible and the card carries its own pause control.
+  started user-visible and the card carries its own pause control. The
+  playing tape's nav button carries a mini VU meter in its track colour;
+  ejected tapes rewind (re-cued to track 1, highlight and winding
+  cleared); tracklist rows are click/keyboard playable (playVideoAt,
+  with the swap sound when it's a different tape).
 - **Nav** is a tape-deck preset row: numbered buttons with full playlist names,
   clickable "A ▸ / B ▸" side links, a vertical separator, then "✱ Outro" and
   "∞ Full list ↗" (external). Mini-cassette CSS tooltips on hover carry short
