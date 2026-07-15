@@ -182,6 +182,8 @@
     transform: translateX(calc(-50% + var(--tt-shift, 0px))) translateY(-4px);
     padding: 0.45rem 1rem 1.7rem;
     background:
+      /* highlighter sweep behind the text while this tape plays */
+      var(--tt-hilite, linear-gradient(transparent, transparent)) left 12px top 6px / calc(100% - 24px) 1.3em no-repeat,
       /* each reel: a donut frame above its own boxed spokes clips them
          round; the spokes' from-angle is what animates */
       radial-gradient(circle 9px, #0d0f14 0 2.6px, transparent 2.6px 7px, #565b68 7px 9px, var(--shell-deep) 9px) left 18% bottom 3px / 20px 20px no-repeat,
@@ -210,9 +212,15 @@
     visibility: visible;
     transform: translateX(calc(-50% + var(--tt-shift, 0px))) translateY(0);
   }
-  /* The easter egg: while this tape plays, its mini-cassette's reels turn */
+  /* The easter egg: while this tape plays, its mini-cassette's reels turn
+     and the tooltip's now-playing title gets the highlighter sweep */
   .tracklist-nav a.playing-tape::after {
     animation: reelspin 2.6s linear infinite;
+    --tt-hilite: linear-gradient(100deg,
+      rgba(240, 168, 40, 0) 0.5%,
+      rgba(240, 168, 40, 0.45) 2.5% 97.5%,
+      rgba(240, 168, 40, 0) 99.5%);
+    color: #f4f5f8;
   }
   /* Counter-clockwise, matching the big reels */
   @keyframes reelspin { to { --reelspin: -360deg; } }
@@ -1182,6 +1190,16 @@
   // never when re-revealing or resuming the one already loaded
   let loadedTape = null;
 
+  // Eject every other tape: pause it and slide its tracklist back in
+  const ejectOthers = (box) => {
+    allTapes.forEach((other) => {
+      if (other.box !== box) {
+        other.player.pauseVideo();
+        other.box.classList.remove('revealed');
+      }
+    });
+  };
+
   document.querySelectorAll('.video-container[data-list]').forEach((box) => {
     const tracklist = box.querySelector('.tracks');
     fetchTracks(box.dataset.list).then((titles) => {
@@ -1262,8 +1280,9 @@
 
     box.querySelector('.play-btn').addEventListener('click', () => {
       if (loadedTape !== box) {
-        // A different tape goes into the deck: let the insertion sound
-        // finish before the video starts, so playback doesn't stamp on it
+        // A different tape goes into the deck: stop the old one FIRST,
+        // then the insertion sound, and only then does the video start
+        ejectOthers(box);
         loadedTape = box;
         const wait = clunk();
         if (wait) {
@@ -1334,16 +1353,9 @@
                 'vu-live',
                 !!document.querySelector('.window.playing')
               );
-              // Only one tape in the deck at a time: pause the others and
-              // slide their tracklists back over the stopped video
-              if (isPlaying) {
-                allTapes.forEach((other) => {
-                  if (other.player !== player) {
-                    other.player.pauseVideo();
-                    other.box.classList.remove('revealed');
-                  }
-                });
-              }
+              // Only one tape in the deck at a time (safety net — the play
+              // handler already ejects the others before the swap sound)
+              if (isPlaying) ejectOthers(box);
             },
           },
         });
