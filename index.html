@@ -1167,6 +1167,8 @@
     return () => {
       try {
         audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+        // Some browsers hand back a suspended context even mid-gesture
+        if (audio.state === 'suspended') audio.resume();
         const t = audio.currentTime;
         const dur = 0.06;
         const buffer = audio.createBuffer(1, audio.sampleRate * dur, audio.sampleRate);
@@ -1313,6 +1315,22 @@
               );
               if (navLink) navLink.classList.toggle('playing-tape', isPlaying);
               showState(player.getPlaylistIndex());
+              // While playing, the nav tooltip names the current track
+              if (navLink) {
+                if (!navLink.dataset.blurb) {
+                  navLink.dataset.blurb = navLink.dataset.title;
+                }
+                const nowPlaying = tracklist.querySelector('li.now-playing');
+                const trackTitle = nowPlaying
+                  ? nowPlaying.textContent.replace(/^[▶❚]+\s*/, '').trim()
+                  : '';
+                navLink.dataset.title =
+                  isPlaying && trackTitle
+                    ? '▶ ' + (trackTitle.length > 48
+                        ? trackTitle.slice(0, 47) + '…'
+                        : trackTitle)
+                    : navLink.dataset.blurb;
+              }
               // Wind the tape packs to match how far through the tape is
               const playlist = player.getPlaylist();
               if (playlist && playlist.length > 1) {
