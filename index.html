@@ -619,6 +619,14 @@
     color: var(--spine, var(--accent));
     font-weight: 700;
   }
+  /* A long side (6+ tracks) writes smaller and tighter so it still fits
+     the window at narrow widths */
+  .jcard:has(.tracks li:nth-child(6)) .tracks {
+    line-height: 1.35;
+  }
+  .jcard:has(.tracks li:nth-child(6)) .tracks li {
+    font-size: clamp(0.72rem, 1.9vw, 0.95rem);
+  }
   .tracks .tracks-note {
     color: rgba(58, 88, 158, 0.65);
     font-style: italic;
@@ -914,7 +922,7 @@
           <h2>Jeff's Jams</h2>
           <span class="tape-meta"><span class="tape-no"><span class="tape-word">TAPE </span>05<span class="tape-gap"> </span>/<span class="tape-gap"> </span>09</span><a class="yt-link" aria-label="Open playlist on YouTube" href="https://www.youtube.com/playlist?list=PLMjdH71empG0" target="_blank" rel="noopener"><svg class="yt-mark" viewBox="0 0 24 17" width="17" height="12" fill="currentColor" aria-hidden="true"><path d="M23.5 2.6A3 3 0 0 0 21.4.5C19.6 0 12 0 12 0S4.4 0 2.6.5A3 3 0 0 0 .5 2.6 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.9 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.9 31 31 0 0 0-.5-5.9z"/><path d="M9.6 12.2 15.8 8.5 9.6 4.8z" fill="#f4f2ea"/></svg> <span class="yt-words">Open playlist on YouTube</span><span class="yt-word">Playlist</span> ↗</a></span>
         </div>
-        <p class="blurb">The creator's cut — my own five. Choosing was the hardest part.</p>
+        <p class="blurb">The creator's cut — everyone else picked five; I cut nine, one for each year.</p>
       </div>
       <div class="window">
         <div class="reel" aria-hidden="true"></div>

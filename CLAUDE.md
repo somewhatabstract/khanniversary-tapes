@@ -71,7 +71,11 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   truncated (real IDs are ~34 chars). All others were supplied by Jeff
   directly but are also short-looking — verify every embed loads.
 - Jeff's Jams (`PLMjdH71empG0`) and Eric's Earworms (`PLbvqrSnnG-9s`)
-  playlists exist but were empty at launch; videos to be added.
+  playlists exist but were empty at launch; videos to be added. Jeff's Jams
+  will carry NINE tracks, not five — the creator's cut, one per year; the
+  blurb owns the rule-break and long tracklists (6+) render tighter. The
+  tracklist fetch caps at `maxResults=10`; an eleventh track would silently
+  drop.
 - **Possible tenth list** from a colleague who hasn't responded yet. If it
   arrives: it joins Side A (making six human tapes), and Hidden Tracks becomes
   an actual hidden track / easter egg — revealed by clicking something
