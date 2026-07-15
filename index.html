@@ -182,7 +182,7 @@
       radial-gradient(circle 9px, #0d0f14 0 2.6px, transparent 2.6px 7px, #565b68 7px 9px, var(--shell-deep) 9px) left 18% bottom 3px / 20px 20px no-repeat,
       radial-gradient(circle 9px, #0d0f14 0 2.6px, transparent 2.6px 7px, #565b68 7px 9px, var(--shell-deep) 9px) right 18% bottom 3px / 20px 20px no-repeat,
       repeating-conic-gradient(from var(--reelspin), #e8e9ee 0 22deg, #16181f 22deg 60deg) left 18% bottom 3px / 20px 20px no-repeat,
-      repeating-conic-gradient(from calc(0deg - var(--reelspin)), #e8e9ee 0 22deg, #16181f 22deg 60deg) right 18% bottom 3px / 20px 20px no-repeat,
+      repeating-conic-gradient(from var(--reelspin), #e8e9ee 0 22deg, #16181f 22deg 60deg) right 18% bottom 3px / 20px 20px no-repeat,
       linear-gradient(#101218, #101218) center bottom 8px / 26% 10px no-repeat,
       linear-gradient(180deg, var(--shell), var(--shell-deep));
     color: var(--heading);
@@ -209,7 +209,8 @@
   .tracklist-nav a.playing-tape::after {
     animation: reelspin 2.6s linear infinite;
   }
-  @keyframes reelspin { to { --reelspin: 360deg; } }
+  /* Counter-clockwise, matching the big reels */
+  @keyframes reelspin { to { --reelspin: -360deg; } }
   @media (prefers-reduced-motion: reduce) {
     .tracklist-nav a::after { transition: none; animation: none; }
   }
@@ -520,7 +521,8 @@
     .window .reel:first-child { --pack: 9px; margin: 8px 5px 8px 8px; }
     .window .reel:last-child  { --pack: 4px; margin: 3px 3px 3px 1px; }
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  /* Counter-clockwise, like a cassette playing side A */
+  @keyframes spin { to { transform: rotate(-360deg); } }
   @media (prefers-reduced-motion: reduce) {
     .vu span { animation: none; height: 60%; }
     .reel { animation: none; }
