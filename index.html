@@ -160,7 +160,14 @@
   }
   .tracklist-nav a:active { border-bottom-width: 1px; transform: translateY(2px); }
 
-  /* Mini-cassette tooltip: a tiny labelled tape drops below the button */
+  /* Mini-cassette tooltip: a tiny labelled tape drops below the button,
+     with spoked reels either side of a window strip. While that tape is
+     playing, the reels turn — a little easter egg for hoverers. */
+  @property --reelspin {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
   .tracklist-nav a { position: relative; }
   .tracklist-nav a::after {
     content: attr(data-title);
@@ -168,10 +175,15 @@
     top: calc(100% + 9px);
     left: 50%;
     transform: translateX(calc(-50% + var(--tt-shift, 0px))) translateY(-4px);
-    padding: 0.45rem 1rem 1.1rem;
+    padding: 0.45rem 1rem 1.7rem;
     background:
-      radial-gradient(circle 3.5px at 32% 74%, #0d0f14 0 1.6px, #7c8292 1.6px 3.5px, transparent 3.5px),
-      radial-gradient(circle 3.5px at 68% 74%, #0d0f14 0 1.6px, #7c8292 1.6px 3.5px, transparent 3.5px),
+      /* each reel: a donut frame above its own boxed spokes clips them
+         round; the spokes' from-angle is what animates */
+      radial-gradient(circle 9px, #0d0f14 0 2.6px, transparent 2.6px 7px, #565b68 7px 9px, var(--shell-deep) 9px) left 18% bottom 3px / 20px 20px no-repeat,
+      radial-gradient(circle 9px, #0d0f14 0 2.6px, transparent 2.6px 7px, #565b68 7px 9px, var(--shell-deep) 9px) right 18% bottom 3px / 20px 20px no-repeat,
+      repeating-conic-gradient(from var(--reelspin), #e8e9ee 0 22deg, #16181f 22deg 60deg) left 18% bottom 3px / 20px 20px no-repeat,
+      repeating-conic-gradient(from calc(0deg - var(--reelspin)), #e8e9ee 0 22deg, #16181f 22deg 60deg) right 18% bottom 3px / 20px 20px no-repeat,
+      linear-gradient(#101218, #101218) center bottom 8px / 26% 10px no-repeat,
       linear-gradient(180deg, var(--shell), var(--shell-deep));
     color: var(--heading);
     border: 1px solid var(--line);
@@ -193,8 +205,13 @@
     visibility: visible;
     transform: translateX(calc(-50% + var(--tt-shift, 0px))) translateY(0);
   }
+  /* The easter egg: while this tape plays, its mini-cassette's reels turn */
+  .tracklist-nav a.playing-tape::after {
+    animation: reelspin 2.6s linear infinite;
+  }
+  @keyframes reelspin { to { --reelspin: 360deg; } }
   @media (prefers-reduced-motion: reduce) {
-    .tracklist-nav a::after { transition: none; }
+    .tracklist-nav a::after { transition: none; animation: none; }
   }
 
   @media (max-width: 620px) {
@@ -1232,6 +1249,11 @@
             onStateChange: (event) => {
               isPlaying = event.data === YT.PlayerState.PLAYING;
               tapeWindow.classList.toggle('playing', isPlaying);
+              // Easter egg: the playing tape's nav mini-cassette turns too
+              const navLink = document.querySelector(
+                '.tracklist-nav a[href="#' + box.closest('.tape').id + '"]'
+              );
+              if (navLink) navLink.classList.toggle('playing-tape', isPlaying);
               showState(player.getPlaylistIndex());
               // Only one tape in the deck at a time: pause the others and
               // slide their tracklists back over the stopped video
