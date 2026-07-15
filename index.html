@@ -1196,11 +1196,15 @@
         thump.connect(thumpGain).connect(audio.destination);
         thump.start(t);
         thump.stop(t + 0.12);
+        return 120; // how long the kachunk lasts, in ms
       } catch {
         // no audio? no kachunk — the deck works fine silently
+        return 0;
       }
     };
   })();
+  // The kachunk plays once per visit — the first tape loaded into the deck
+  let clunkPlayed = false;
 
   document.querySelectorAll('.video-container[data-list]').forEach((box) => {
     const tracklist = box.querySelector('.tracks');
@@ -1281,7 +1285,17 @@
     };
 
     box.querySelector('.play-btn').addEventListener('click', () => {
-      clunk();
+      if (!clunkPlayed) {
+        // First tape of the visit: let the kachunk finish before the
+        // video starts, so playback doesn't stamp on it
+        clunkPlayed = true;
+        const wait = clunk();
+        if (wait) {
+          const btn = box.querySelector('.play-btn');
+          setTimeout(() => btn.click(), wait);
+          return;
+        }
+      }
       if (box.dataset.loaded) {
         // The tape is already in: slide the card away and make sure the
         // tape is actually rolling (no-op if it already is)
