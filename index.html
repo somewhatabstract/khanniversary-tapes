@@ -1253,7 +1253,7 @@
             .replace(/\s*(©|\(c\))\s*\d{4}\s*$/i, '')
             .replace(/\s+by\s+Jeff\s+Yates\b/i, '')
             .trim()
-            .replace(/^["“”](.+)["“”]$/, '$1')
+            .replace(/^"([^"]+)"$|^“([^“”]+)”$/, '$1$2')
             .trim() || t
         );
       sessionStorage.setItem(cacheKey, JSON.stringify(titles));
