@@ -74,10 +74,12 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   interactions), Gemini's Gems (most-viewed — skews Shorts, known and
   accepted), The Long Plays (most-watched full-length, non-Short videos;
   includes talent-show entries).
-- **Hidden Tracks is the actual hidden track**: "TAPE 10 / 09", unlisted in
-  the nav and `hidden` in the DOM until the outro sign-off phrase "one take
-  at a time" (a disguised button, warms on hover) reveals it — the
-  overlooked still get the last word, but only for liner-note readers.
+- **Hidden Tracks is the actual hidden track**: "TAPE 10 / 09", `hidden` in
+  the DOM with two cheeky ways in — the outro sign-off phrase "one take at
+  a time" (a disguised button, warms on hover), or the nav's dimmed
+  "?? Unlabelled" preset slot after 09. Either reveals the tape, relabels
+  the slot to "10 Hidden Tracks", and persists for the session
+  (sessionStorage `bonus-found`).
 - Outro liner notes: thanks to the five human curators and Khan Academy;
   encouragement to create ("...only you could make"); credit line "first
   pressing by Gemini · remastered with Claude"; sign-off "Recorded live, one
