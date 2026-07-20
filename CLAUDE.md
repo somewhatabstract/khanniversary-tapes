@@ -76,10 +76,11 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   includes talent-show entries).
 - **Hidden Tracks is the actual hidden track**: "TAPE 10 / 09", `hidden` in
   the DOM with two cheeky ways in — the outro sign-off phrase "one take at
-  a time" (a disguised button, warms on hover), or the nav's dimmed
-  "?? Unlabelled" preset slot after 09. Either reveals the tape, relabels
-  the slot to "10 Hidden Tracks", and persists for the session
-  (sessionStorage `bonus-found`).
+  a time" (a disguised button, warms on hover), or the nav separator `|`
+  before Outro, which hovers a glitchy RGB-split "wh̷at's th̸is?" tooltip.
+  Either reveals the tape, inserts a full "10 Hidden Tracks" B-side nav
+  entry, retires the separator to plain furniture, and persists for the
+  session (sessionStorage `bonus-found`).
 - Outro liner notes: thanks to the five human curators and Khan Academy;
   encouragement to create ("...only you could make"); credit line "first
   pressing by Gemini · remastered with Claude"; sign-off "Recorded live, one

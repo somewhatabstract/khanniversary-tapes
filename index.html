@@ -293,12 +293,59 @@
     background: var(--line);
   }
 
-  /* Thin separator before the full-collection link — it's not a tape */
+  /* Thin separator before the outro links — it's not a tape. Or is it?
+     Until the hidden tape is found, the separator is the glitch in the
+     deck: hover it and something isn't right. */
   .tracklist-nav .nav-sep {
-    width: 1px;
     align-self: stretch;
     margin: 0.15rem 0.45rem;
-    background: var(--line);
+    display: flex;
+  }
+  .sep-btn {
+    position: relative;
+    width: 13px;
+    margin: 0 -6px;
+    padding: 0;
+    border: none;
+    cursor: default;
+    background: linear-gradient(var(--line), var(--line)) center / 1px 100% no-repeat;
+  }
+  .sep-btn[data-title] { cursor: pointer; }
+  .sep-btn[data-title]::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 9px);
+    left: 50%;
+    transform: translateX(-50%) skewX(-6deg);
+    padding: 0.4rem 0.8rem;
+    background: #0d0f14;
+    border: 1px solid var(--line);
+    color: var(--heading);
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    text-shadow: -1.5px 0 rgba(255, 0, 90, 0.75), 1.5px 0 rgba(0, 210, 255, 0.75);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 20;
+  }
+  .sep-btn[data-title]:hover::after,
+  .sep-btn[data-title]:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    animation: glitch-jitter 0.35s steps(2, jump-none) infinite;
+  }
+  .sep-btn:focus-visible { outline: none; }
+  @keyframes glitch-jitter {
+    0%   { transform: translateX(calc(-50% - 1px)) skewX(-9deg); }
+    50%  { transform: translateX(calc(-50% + 1px)) skewX(-3deg); }
+    100% { transform: translateX(-50%) skewX(-7deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sep-btn[data-title]:hover::after,
+    .sep-btn[data-title]:focus-visible::after { animation: none; }
   }
 
   /* Nav side group labels */
@@ -848,13 +895,6 @@
   /* The hidden track: tape 10 of 09 stays unlisted and unrendered until
      the sign-off phrase is clicked. The phrase looks like plain copy but
      warms up on hover — hidden, not unfindable. */
-  /* The unlabelled preset: the nav's own way in, dimmed like a slot
-     nobody bothered to label. Revealing the tape relabels it to '10'. */
-  .nav-slot .num, .nav-slot .who {
-    opacity: 0.5;
-    font-style: italic;
-  }
-
   .bonus-key {
     background: none;
     border: none;
@@ -918,8 +958,7 @@
     <li><a href="#claude" style="--track: #d946ef;" data-title="Five songs picked from a year of Slack chatter" aria-label="Claude's Chorus"><span class="num">07</span><span class="who">Claude's Chorus</span></a></li>
     <li><a href="#gemini" style="--track: #14b8a6;" data-title="The year's most-viewed songs" aria-label="Gemini's Gems"><span class="num">08</span><span class="who">Gemini's Gems</span></a></li>
     <li><a href="#longplays" style="--track: #fb7185;" data-title="The most-watched full-length demos" aria-label="The Long Plays"><span class="num">09</span><span class="who">The Long Plays</span></a></li>
-    <li><a href="#hidden" class="nav-slot" style="--track: #94a3b8;" data-title="someone never labelled this preset — press it and find out" aria-label="An unlabelled preset"><span class="num">??</span><span class="who">Unlabelled</span></a></li>
-        <li class="nav-sep" aria-hidden="true"></li>
+        <li class="nav-sep"><button class="sep-btn" type="button" data-title="wh̷at’s th̸is?" aria-label="What’s this?"></button></li>
     <li><a href="#outro" data-title="Outro · liner notes" aria-label="Outro — liner notes"><span class="num">✱</span><span class="who">Outro</span></a></li>
     <li><a href="https://www.youtube.com/playlist?list=PLp_aNQTHQdJiJa1GwaummT-Z762FW242C" target="_blank" rel="noopener" style="--track: #f0a828;" data-title="The growing collection on YouTube" aria-label="The growing collection on YouTube"><span class="num">∞</span><span class="who">Full list</span><span class="ext" aria-hidden="true">↗</span></a></li>
   </ul>
@@ -1535,22 +1574,25 @@
   });
 
   // The hidden track: the overlooked get the last word, but only for the
-  // curious. Two ways in — the liner-note sign-off, or the unlabelled
-  // preset in the nav. Either reveals tape 10 of 09, relabels the nav
-  // slot, and the discovery holds for the rest of the session.
+  // curious. Two ways in — the liner-note sign-off, or the glitchy nav
+  // separator. Either reveals tape 10 of 09 and gives it a proper B-side
+  // preset; the separator goes back to being furniture. Discovery holds
+  // for the rest of the session.
   {
     const bonusKey = document.querySelector('.bonus-key');
-    const navSlot = document.querySelector('.nav-slot');
+    const sepBtn = document.querySelector('.sep-btn');
     const hiddenTape = document.getElementById('hidden');
     const revealBonus = (scroll) => {
       hiddenTape.hidden = false;
-      if (navSlot) {
-        navSlot.classList.remove('nav-slot');
-        navSlot.querySelector('.num').textContent = '10';
-        navSlot.querySelector('.who').textContent = 'Hidden Tracks';
-        navSlot.dataset.title = 'The least-heard songs — wrongly overlooked';
-        navSlot.setAttribute('aria-label', 'Hidden Tracks');
+      if (!document.querySelector('.tracklist-nav a[href="#hidden"]')) {
+        const li = document.createElement('li');
+        li.innerHTML =
+          '<a href="#hidden" style="--track: #94a3b8;" data-title="The least-heard songs — wrongly overlooked" aria-label="Hidden Tracks"><span class="num">10</span><span class="who">Hidden Tracks</span></a>';
+        sepBtn.closest('.nav-sep').before(li);
       }
+      sepBtn.removeAttribute('data-title');
+      sepBtn.removeAttribute('aria-label');
+      sepBtn.disabled = true;
       try { sessionStorage.setItem('bonus-found', '1'); } catch {}
       if (scroll) hiddenTape.scrollIntoView({ block: 'center' });
     };
@@ -1558,9 +1600,8 @@
       bonusKey.setAttribute('aria-label', 'Reveal the hidden tape');
       bonusKey.addEventListener('click', () => revealBonus(true));
     }
-    if (navSlot && hiddenTape) {
-      // Reveal, then let the anchor's own #hidden jump land on the tape
-      navSlot.addEventListener('click', () => revealBonus(false));
+    if (sepBtn && hiddenTape) {
+      sepBtn.addEventListener('click', () => revealBonus(true));
     }
     try {
       if (hiddenTape && sessionStorage.getItem('bonus-found')) revealBonus(false);
