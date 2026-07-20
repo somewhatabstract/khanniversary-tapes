@@ -40,7 +40,7 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   reel to right as the playlist progresses (`--wind` from the playlist
   index); the playing tape's nav mini-cassette tooltip spins its reels;
   the hero VU meter runs hot while anything plays (`vu-live` on body);
-  tape 05's write-protect tab is punched out (nobody records over the
+  Jeff's Jams' write-protect tab is punched out (nobody records over the
   creator's cut); loading a DIFFERENT tape into the deck plays a real
   cassette-insertion recording (inlined base64 MP3, trimmed, from
   orangefreesounds.com under CC BY-NC 4.0 — credited in the liner notes;
@@ -66,15 +66,19 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
 - Hero: "The Khanniversary Tapes", "nine tapes for nine years", quiet inline
   link to the full collection
   (<https://www.youtube.com/playlist?list=PLp_aNQTHQdJiJa1GwaummT-Z762FW242C>).
-- **Side A · picked by people** (01–05): Dave's Deep Cuts, Matthew's Mixtape,
-  Walt's Wavelengths, Eric's Earworms, Jeff's Jams (Jeff's own; "the
-  creator's cut" lives in its blurb; closes side A deliberately).
-- **Side B · picked by numbers** (06–09): Claude's Chorus (picked from Slack
+- **Side A · picked by people** (01–06): Dave's Deep Cuts, Matthew's Mixtape,
+  Walt's Wavelengths, Eric's Earworms, Jeremy's Jives (lime `#84cc16`;
+  arrived after launch), Jeff's Jams (Jeff's own; "the creator's cut" lives
+  in its blurb; closes side A deliberately).
+- **Side B · picked by numbers** (07–09): Claude's Chorus (picked from Slack
   interactions), Gemini's Gems (most-viewed — skews Shorts, known and
   accepted), The Long Plays (most-watched full-length, non-Short videos;
-  includes talent-show entries), Hidden Tracks (least-viewed; closes the page
-  on purpose — "the overlooked get the last word").
-- Outro liner notes: thanks to the four human curators and Khan Academy;
+  includes talent-show entries).
+- **Hidden Tracks is the actual hidden track**: "TAPE 10 / 09", unlisted in
+  the nav and `hidden` in the DOM until the outro sign-off phrase "one take
+  at a time" (a disguised button, warms on hover) reveals it — the
+  overlooked still get the last word, but only for liner-note readers.
+- Outro liner notes: thanks to the five human curators and Khan Academy;
   encouragement to create ("...only you could make"); credit line "first
   pressing by Gemini · remastered with Claude"; sign-off "Recorded live, one
   take at a time".
@@ -92,11 +96,8 @@ root) at <https://somewhatabstract.github.io/khanniversary-tapes/>.
   blurb owns the rule-break and long tracklists (6+) render tighter. The
   tracklist fetch caps at `maxResults=10`; an eleventh track would silently
   drop.
-- **Possible tenth list** from a colleague who hasn't responded yet. If it
-  arrives: it joins Side A (making six human tapes), and Hidden Tracks becomes
-  an actual hidden track / easter egg — revealed by clicking something
-  on-theme (e.g. the "Recorded live, one take at a time" sign-off), keeping
-  nine visible tapes for nine years.
+- Jeremy's Jives (`PLa4Ei1h8VS0A`) arrived after launch and looks
+  short-truncated like the others — verify its embed and tracklist load.
 
 ## Working conventions
 
