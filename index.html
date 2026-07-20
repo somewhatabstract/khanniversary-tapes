@@ -1245,12 +1245,15 @@
         // Uploads are titled '<title> by Jeff Yates #hash #tags', with the
         // occasional qualifier ('… (unedited)') or copyright notice
         // ('… © 2024') after the byline — keep the title and qualifiers,
-        // drop the byline, hashtags, and copyright.
+        // drop the byline, hashtags, copyright, and any quotes wrapped
+        // around the whole title.
         .map((t) =>
           t
             .replace(/(\s*#[^\s#]+)+\s*$/, '')
             .replace(/\s*(©|\(c\))\s*\d{4}\s*$/i, '')
             .replace(/\s+by\s+Jeff\s+Yates\b/i, '')
+            .trim()
+            .replace(/^["“”](.+)["“”]$/, '$1')
             .trim() || t
         );
       sessionStorage.setItem(cacheKey, JSON.stringify(titles));
